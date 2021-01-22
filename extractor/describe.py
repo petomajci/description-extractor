@@ -532,7 +532,10 @@ def describe_protein(s1, s2, codon_table=1):
             seq_list = AISeqList()
 
             # NOTE: This is for filling.
-            last_end = variants[index].reference_start
+            if index < len(variants):
+                last_end = variants[index].reference_start
+            else:
+                last_end = 1000000
 
             while (index < len(variants) and
                     variants[index].type & extractor.FRAME_SHIFT):

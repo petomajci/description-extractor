@@ -30,11 +30,13 @@ def codon_table_string(table_id):
     :returns: String representation of code table referenced by {table_id}.
     :rtype: str
     """
-    codons = CodonTable.unambiguous_dna_by_id[table_id].forward_table.items()
+    codons = list(CodonTable.unambiguous_dna_by_id[table_id].forward_table.items())
 
-    codons += map(lambda x: (x, '*'),
-        CodonTable.unambiguous_dna_by_id[table_id].stop_codons)
+    #print(f'AAA {type(codons)}')
+    codons += list(map(lambda x: (x, '*'),
+        CodonTable.unambiguous_dna_by_id[table_id].stop_codons))
 
+    #print(codons)
     return ''.join(map(lambda x: x[1], sorted(codons)))
 
 

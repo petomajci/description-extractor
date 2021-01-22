@@ -310,10 +310,12 @@ class ProteinVar(object):
         self.end = end
         self.sample_start = sample_start
         self.sample_end = sample_end
-        self.start_aa = s1[start - 1]
-        self.end_aa = s1[end - 1]
-        self.sample_start_aa = s2[sample_start - 1]
-        self.sample_end_aa = s2[sample_end - 1]
+        if type!= 'none':
+            self.start_aa = s1[start - 1]
+            self.end_aa = s1[end - 1]
+            self.sample_start_aa = s2[sample_start - 1]
+            self.sample_end_aa = s2[sample_end - 1]
+        #print(self.sample_start_aa)
         self.type = type
         self.deleted = deleted
         self.inserted = ISeqList([ISeq(inserted.get_sequence())])
@@ -335,20 +337,20 @@ class ProteinVar(object):
         if self.type == 'none':
             return '='
 
-        description = '{}{}'.format(seq3(self.start_aa), self.start)
+        description = '{}{}'.format(self.start_aa, self.start)
         if self.term:
             return description + '{}fs*{}'.format(
-                seq3(self.inserted[0].sequence[0]), self.term)
+                self.inserted[0].sequence[0], self.term)
         if self.start != self.end:
-            description += '_{}{}'.format(seq3(self.end_aa), self.end)
+            description += '_{}{}'.format(self.end_aa, self.end)
 
         if self.type != 'subst':
             description += self.type
 
             if self.type in ('ins', 'delins'):
-                return description + seq3(str(self.inserted)) # FIXME: str
+                return description + str(self.inserted) # FIXME: str
             return description
-        return description + seq3(self.inserted)
+        return description + str(self.inserted)
 
 
     def nhgvs(self):

@@ -248,7 +248,7 @@ def var_to_protein_var(s1, s2, var, seq_list=[], weight_position=1):
                 weight_position=weight_position)
 
         return ProteinVar(s1=s1, s2=s2, start=var.reference_start,
-            end=var.reference_start + 1,
+            end=min(var.reference_start + 1,len(s1)),
             inserted=seq_list or
             AISeqList([AISeq(sequence=s2[var.sample_start:var.sample_end],
                 weight_position=weight_position)]),
@@ -265,7 +265,7 @@ def var_to_protein_var(s1, s2, var, seq_list=[], weight_position=1):
 
         return ProteinVar(s1=s1, s2=s2, start=var.reference_start + 1,
             end=var.reference_end, type='del', shift=shift,
-            sample_start=var.sample_start, sample_end=var.sample_end + 1,
+            sample_start=var.sample_start, sample_end=var.sample_end,
             deleted=AISeqList([AISeq(sequence=s1[
                 var.reference_start:var.reference_end],
                 weight_position=weight_position)]),

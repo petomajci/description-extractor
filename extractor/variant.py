@@ -312,8 +312,14 @@ class ProteinVar(object):
         self.sample_end = sample_end
         if type!= 'none':
             self.start_aa = s1[start - 1]
+            if end > len(s1):
+                print(f'ERROR3 {s1} {start} {end}')
+                print(f'ERROR34 {s2} {start} {end}')
             self.end_aa = s1[end - 1]
             self.sample_start_aa = s2[sample_start - 1]
+            if sample_end > len(s2):
+                print(f'ERROR {s2} {sample_start} {sample_end}')
+                print(f'ERROR2 {s1} {start} {end}')
             self.sample_end_aa = s2[sample_end - 1]
         #print(self.sample_start_aa)
         self.type = type

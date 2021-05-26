@@ -7,6 +7,7 @@ from distutils.core import Extension
 # generated files.
 # http://stackoverflow.com/questions/12491328/python-distutils-not-include-the-swig-generated-module
 from setuptools.command.install import install
+import distutils.command.install as orig
 from distutils.command.build import build
 class CustomBuild(build):
     def run(self):
@@ -15,7 +16,7 @@ class CustomBuild(build):
 class CustomInstall(install):
     def run(self):
         self.run_command('build_ext')
-        self.do_egg_install()
+        orig.install.run(self)
 custom_cmdclass = {'build': CustomBuild, 'install': CustomInstall}
 
 if sys.version_info < (2, 6):

@@ -15,7 +15,7 @@ class CustomBuild(build):
 class CustomInstall(install):
     def run(self):
         self.run_command('build_ext')
-        #self.do_egg_install()
+        self.do_egg_install()
 custom_cmdclass = {'build': CustomBuild, 'install': CustomInstall}
 
 if sys.version_info < (2, 6):
